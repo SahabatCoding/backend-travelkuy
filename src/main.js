@@ -1,5 +1,6 @@
 import { web } from "./application/web.js";
 
-web.listen(3000, ()=>{
+const port =  3000
+web.listen(port, ()=>{
     console.log('running')
 })
