@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  username String @id @db.VarChar(100)
+  password String @db.VarChar(100)
+  kota Kota[]
+}
+
+model User {
+  username  String    @id @db.VarChar(100)
+  full_name String    @db.VarChar(100)
+  password  String    @db.VarChar(100)
+  email     String    @db.VarChar(100)
+  phone     String    @db.VarChar(100)
+  jkel      String?   @db.VarChar(100)
+  tgl_lahir String?   @db.VarChar(100)
+  alamat    String?   @db.VarChar(100)
+  ktp       String?   @db.VarChar(100)
+  kode_pos  String?   @db.VarChar(100)
+  token     String?   @db.VarChar(100)
+  booking   Booking[]
+
+  @@map("user")
+}
+
+model Kota {
+  id          Int           @id @default(autoincrement())
+  nm_kota     String        @db.VarChar(100)
+  about       String        @db.VarChar(100)
+  country     String        @db.VarChar(100)
+  destination Destination[]
+  id_admin String
+  admin Admin @relation(fields: [id_admin], references: [username])
+
+  @@map("kota")
+}
+
+model Destination {
+  id             Int     @id @default(autoincrement())
+  nm_destination String  @db.VarChar(100)
+  about          String  @db.VarChar(100)
+  id_kota        Int
+  hotel          Hotel[]
+  kota           Kota    @relation(fields: [id_kota], references: [id])
+
+  @@map("destination")
+}
+
+model Hotel {
+  id             Int         @id @default(autoincrement())
+  nm_hotel       String      @db.VarChar(100)
+  about          String      @db.VarChar(100)
+  alamat         String      @db.VarChar(100)
+  price          String      @db.VarChar(100)
+  id_destination Int
+  booking        Booking[]
+  destination    Destination @relation(fields: [id_destination], references: [id])
+
+  @@map("hotel")
+}
+
+model Booking {
+  id_booking Int      @id @default(autoincrement())
+  check_in   DateTime
+  check_out  DateTime
+  price      String   @db.VarChar(100)
+  username   String
+  id_hotel   Int
+  hotel      Hotel    @relation(fields: [id_hotel], references: [id])
+  user       User     @relation(fields: [username], references: [username])
+
+  @@map("booking")
+}
