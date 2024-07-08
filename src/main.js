@@ -1,6 +1,6 @@
 import { web } from "./application/web.js";
 
-const port =  3000
+const port =  process.env.PORT
 web.listen(port, ()=>{
     console.log('running')
 })
