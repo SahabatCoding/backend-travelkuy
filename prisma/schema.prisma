@@ -13,7 +13,6 @@ datasource db {
 model Admin {
   username String @id @db.VarChar(100)
   password String @db.VarChar(100)
-  kota Kota[]
 }
 
 model User {
@@ -34,14 +33,11 @@ model User {
 }
 
 model Kota {
-  id          Int           @id @default(autoincrement())
-  nm_kota     String        @db.VarChar(100)
+  nm_kota     String       @id @db.VarChar(100)
   about       String        @db.VarChar(100)
   country     String        @db.VarChar(100)
   destination Destination[]
-  id_admin String
-  admin Admin @relation(fields: [id_admin], references: [username])
-
+  
   @@map("kota")
 }
 
@@ -49,9 +45,9 @@ model Destination {
   id             Int     @id @default(autoincrement())
   nm_destination String  @db.VarChar(100)
   about          String  @db.VarChar(100)
-  id_kota        Int
+  nm_kota        String
   hotel          Hotel[]
-  kota           Kota    @relation(fields: [id_kota], references: [id])
+  kota           Kota    @relation(fields: [nm_kota], references: [nm_kota])
 
   @@map("destination")
 }

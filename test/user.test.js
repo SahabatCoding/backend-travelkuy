@@ -105,7 +105,7 @@ describe('GET /users/current', ()=>{
         .set('Authorization', 'test')
         
         console.log(result.body)
-            expect(result.status).toBe(200)
+        expect(result.status).toBe(200)
     })
     it('shoul can reject if get data current is invalid', async()=>{
         const result = await supertest(web)

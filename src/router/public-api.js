@@ -5,16 +5,22 @@ import destinationController from '../controller/destination-controller.js'
 import hotelController from '../controller/hotel-controller.js'
 
 const publicRouter = new express.Router()
+publicRouter.get('/',(req, res)=>{
+    res.status(200).json({
+        succses : 'berhasil'
+    })
+})
+
 //api users
 publicRouter.post('/users', userController.register)
 publicRouter.post('/users/login', userController.login)
 
 
 //api kota
-publicRouter.post('/users/:admin', kotaController.create)
-publicRouter.get('/users/:admin/kota/:kota', kotaController.get)
-publicRouter.put('/users/:admin/kota/:kota', kotaController.update)
-publicRouter.delete('/users/:admin/kota/:kota', kotaController.remove)
+publicRouter.post('/kota', kotaController.create)
+publicRouter.get('/kota/:kota', kotaController.get)
+publicRouter.put('/kota/:kota', kotaController.update)
+publicRouter.delete('/kota/:kota', kotaController.remove)
 
 //api destination
 publicRouter.post('/kota/:kota/destination', destinationController.create)

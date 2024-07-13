@@ -9,7 +9,7 @@ describe('POST /users/kota/admin',()=>{
 
     it('should can create data kota',async()=>{
         const result = await supertest(web)
-            .post('/users/admin')
+            .post('/kota')
             .send({
                 nm_kota : 'test',
                 about : 'test',
@@ -23,7 +23,7 @@ describe('POST /users/kota/admin',()=>{
     })
     it('should can reject data current if invalid',async()=>{
         const result = await supertest(web)
-            .post('/users/admin')
+            .post('/kota')
             .send({
                 nm_kota : '',
                 about : 'test',
@@ -34,7 +34,7 @@ describe('POST /users/kota/admin',()=>{
     })
 })
 
-describe('GET /users/:admin/kota/:kota',()=>{
+describe('GET /kota/:kota',()=>{
     beforeEach(async()=>{
         await createKotaTest()
     })
@@ -44,10 +44,8 @@ describe('GET /users/:admin/kota/:kota',()=>{
     })
     
     it('shoul can get data kota',async()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .get('/users/admin/kota/' + getKota.id)
-
+            .get('/kota/test')
 
             console.log(result.body)
             expect(result.status).toBe(200)
@@ -56,13 +54,11 @@ describe('GET /users/:admin/kota/:kota',()=>{
             expect(result.body.data.country).toBe('test')
     })
     it('shoul can reject get data kota if invalid',async()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .get('/users/admin/kota/' + getKota.id + 1)
+            .get('/kota/hai')
 
             console.log(result.body)
             expect(result.status).toBe(404)
-            expect(result.errors).toBeDefined()
         })
 })
 
@@ -76,11 +72,9 @@ describe('PUT /users/:admin/kota/:kota',()=>{
     })
     
     it('shoul can update data kota',async ()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .put('/users/' + getKota.id_admin + '/kota/' + getKota.id)
+            .put('/kota/test')
             .send({
-                nm_kota : 'test',
                 about : 'hai',
                 country : 'hai'
             })
@@ -89,9 +83,8 @@ describe('PUT /users/:admin/kota/:kota',()=>{
             expect(result.status).toBe(200)
         })
     it('shoul can reject update data kota if is invalid',async ()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .put('/users/' + getKota.id_admin + '/kota/' + getKota.id + 1)
+            .put('/kota/hai')
             .send({
                 nm_kota : 'test',
                 about : 'hai',
@@ -113,17 +106,14 @@ describe('DELETE /kota/:kota',()=>{
     })
     
     it('should can delete data kota', async()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .delete('/users/' + getKota.id_admin + '/kota/' + getKota.id )
+            .delete('/kota/test' )
             
             expect(result.status).toBe(200)
     })
     it('should can reject delete data kota is invalid', async()=>{
-        const getKota = await getKotaTest()
         const result = await supertest(web)
-            .put('/users/' + getKota.id_admin + '/kota/' + getKota.id + 1)
-
+            .put('/kota/hai')
             
             expect(result.status).toBe(404)
     })

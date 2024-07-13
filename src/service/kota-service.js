@@ -3,9 +3,18 @@ import { ResponseError } from "../error/response-error.js"
 import { createKotaValidation, getKotaValidation, updateKotaValidation } from "../validation/kota-validation.js"
 import { validate } from "../validation/validation.js"
 
-const create = async (adminId, req)=>{
+const create = async (req)=>{
     const kota  = validate(createKotaValidation, req)
-    kota.id_admin = adminId
+
+    const countKota = await prisma.kota.count({
+        where:{
+            nm_kota : kota.nm_kota
+        }
+    })
+
+    if(countKota === 1){
+        throw new ResponseError(400, 'kota is already exists')
+    }
 
     return prisma.kota.create({
         data : kota,
@@ -17,16 +26,14 @@ const create = async (adminId, req)=>{
     })
 }
 
-const get = async(adminId, kotaId)=>{
-    kotaId = validate(getKotaValidation, kotaId)
+const get = async(nm_kota)=>{
+    nm_kota = validate(getKotaValidation, nm_kota)
 
     const findKota = await prisma.kota.findFirst({
         where :{
-            id : kotaId,
-            id_admin : adminId
+            nm_kota : nm_kota
         },
         select :{
-            id : true,
             nm_kota : true,
             about : true,
             country : true
@@ -40,13 +47,12 @@ const get = async(adminId, kotaId)=>{
     return findKota
 }
 
-const update = async(adminId ,req)=>{
+const update = async(req)=>{
     const kota = validate(updateKotaValidation, req)
 
     const countKota = await prisma.kota.count({
         where :{
-            id : kota.id,
-            id_admin : adminId
+            nm_kota : kota.nm_kota
         }
     })
     if(countKota !== 1){
@@ -55,7 +61,7 @@ const update = async(adminId ,req)=>{
 
     return prisma.kota.update({
         where:{
-            id : kota.id
+            nm_kota : kota.nm_kota
         },
         data :{
             nm_kota : kota.nm_kota,
@@ -70,13 +76,12 @@ const update = async(adminId ,req)=>{
     })
 }
 
-const remove = async (adminId, kotaId)=>{
-    kotaId = validate (getKotaValidation, kotaId)
+const remove = async (nm_kota)=>{
+    nm_kota = validate (getKotaValidation, nm_kota)
 
     const countKota = await prisma.kota.count({
         where :{
-            id : kotaId,
-            id_admin : adminId
+            nm_kota: nm_kota
         }
     })
 
@@ -86,7 +91,7 @@ const remove = async (adminId, kotaId)=>{
 
     return prisma.kota.delete({
         where :{
-            id : kotaId
+            nm_kota : nm_kota
         }
     })
 }

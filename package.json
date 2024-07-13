@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node src/main.js",
-    "test": "jest"
+    "test": "jest",
+    "vercel-build" : "node src/main.js"
   },
   "jest": {
     "transform": {

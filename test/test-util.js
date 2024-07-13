@@ -26,8 +26,8 @@ export const createUserTest = async()=>{
 //Buat data kota
 export const removeKotaTest = async()=>{
     await prisma.kota.deleteMany({
-        where :{
-            id_admin : 'admin'
+        where:{
+            nm_kota : 'test'
         }
     })
 }
@@ -35,7 +35,6 @@ export const removeKotaTest = async()=>{
 export const createKotaTest = async()=>{
     await prisma.kota.create({
         data :{
-            id_admin : 'admin',
             nm_kota : 'test',
             about : 'test',
             country : 'test'
