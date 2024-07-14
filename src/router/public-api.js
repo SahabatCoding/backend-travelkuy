@@ -5,11 +5,8 @@ import destinationController from '../controller/destination-controller.js'
 import hotelController from '../controller/hotel-controller.js'
 
 const publicRouter = new express.Router()
-publicRouter.get('/',(req, res)=>{
-    res.status(200).json({
-        succses : 'berhasil'
-    })
-})
+
+publicRouter.get('/', userController.succses)
 
 //api users
 publicRouter.post('/users', userController.register)

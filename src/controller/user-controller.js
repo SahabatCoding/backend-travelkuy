@@ -1,5 +1,16 @@
 import userService from "../service/user-service.js"
 
+const succses = (req, res, next)=>{
+    try {
+        res.status(200).json({
+            data : 'succses'
+        })
+    } catch (error) {
+        next(200)
+    }
+}
+
+
 const register = async (req, res, next)=>{
     try {
         const result = await userService.register(req.body)
@@ -69,5 +80,6 @@ export default{
     login,
     get,
     update,
-    logout
+    logout,
+    succses
 }
