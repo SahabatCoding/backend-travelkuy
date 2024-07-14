@@ -33,11 +33,11 @@ model User {
 }
 
 model Kota {
-  nm_kota     String       @id @db.VarChar(100)
+  nm_kota     String        @id @db.VarChar(100)
   about       String        @db.VarChar(100)
   country     String        @db.VarChar(100)
   destination Destination[]
-  
+
   @@map("kota")
 }
 
@@ -45,9 +45,9 @@ model Destination {
   id             Int     @id @default(autoincrement())
   nm_destination String  @db.VarChar(100)
   about          String  @db.VarChar(100)
-  nm_kota        String
-  hotel          Hotel[]
+  nm_kota        String  @db.VarChar(100)
   kota           Kota    @relation(fields: [nm_kota], references: [nm_kota])
+  hotel          Hotel[]
 
   @@map("destination")
 }

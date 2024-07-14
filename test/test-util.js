@@ -54,29 +54,25 @@ export const getKotaTest = async()=>{
 export const removeDestinationTest = async ()=>{
     await prisma.destination.deleteMany({
         where :{
-            kota :{
-                id_admin : 'admin'
-            }
+            nm_kota : 'test'
         }
     })   
 }
 
 export const createDestinationTest = async ()=>{
-    const getKota = await getKotaTest()
     await prisma.destination.create({
         data :{
             nm_destination : 'test',
             about : 'test',
-            id_kota : getKota.id
+            nm_kota : 'test'
         }
     })    
 }
 
 export const getDestinationTest = async ()=>{
-    const getKota = await getKotaTest()
     return prisma.destination.findFirst({
         where :{
-            id_kota : getKota.id
+            nm_kota : 'test'
         }
     })
 }

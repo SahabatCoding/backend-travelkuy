@@ -4,12 +4,12 @@ import { createDestinationValidation, getDestinationVlidation, updateDestination
 import { getKotaValidation } from "../validation/kota-validation.js"
 import { validate } from "../validation/validation.js"
 
-const checkKotaExists = async (kotaId)=>{
-    kotaId = validate(getKotaValidation, kotaId)
+const checkKotaExists = async (nm_kota)=>{
+    nm_kota = validate(getKotaValidation, nm_kota)
 
     const countKota = await prisma.kota.count({
         where :{
-            id : kotaId
+            nm_kota : nm_kota
         }
     })
 
@@ -17,14 +17,14 @@ const checkKotaExists = async (kotaId)=>{
         throw new ResponseError(404, 'kota is not found')
     }
 
-    return kotaId
+    return nm_kota
  
 }
 
-const create = async (kotaId, req)=>{
+const create = async (nm_kota, req)=>{
     const destination = validate(createDestinationValidation, req)
-    const id_kota = await checkKotaExists(kotaId)
-    destination.id_kota = id_kota
+    const namakota = await checkKotaExists(nm_kota)
+    destination.nm_kota = namakota
     
     return prisma.destination.create({
         data : destination,
@@ -37,14 +37,14 @@ const create = async (kotaId, req)=>{
     
 }
 
-const get = async(kotaId ,destinationId)=>{
+const get = async(nm_kota ,destinationId)=>{
     destinationId = validate(getDestinationVlidation, destinationId)
-    const id_kota = await checkKotaExists(kotaId)
+    const namakota = await checkKotaExists(nm_kota)
     
     const findDestination = await prisma.destination.findFirst({
         where :{
             id : destinationId,
-            id_kota : id_kota
+            nm_kota : namakota
         },
         select :{
             id: true,
@@ -62,14 +62,14 @@ const get = async(kotaId ,destinationId)=>{
     
 }
 
-const update = async (kotaId ,req)=>{
+const update = async (nm_kota ,req)=>{
     const destination = validate(updateDestinationVlidation, req)
-    const id_kota = await checkKotaExists(kotaId)
+    const namaKota = await checkKotaExists(nm_kota)
 
     const countDestination = await prisma.destination.count({
         where :{
             id : destination.id,
-            id_kota : id_kota
+            nm_kota : namaKota
         }
     })
 
@@ -93,14 +93,14 @@ const update = async (kotaId ,req)=>{
     })
 }
 
-const remove = async(kotaId, destinationId)=>{
+const remove = async(nm_kota, destinationId)=>{
     destinationId = validate(getDestinationVlidation, destinationId)
-    const id_kota = await checkKotaExists(kotaId)
+    const namaKota = await checkKotaExists(nm_kota)
 
     const countDestination = await prisma.destination.count({
         where :{
             id : destinationId,
-            id_kota : id_kota
+            nm_kota : namaKota
         }
     })
 

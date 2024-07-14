@@ -3,8 +3,17 @@ import { ResponseError } from "../error/response-error.js"
 import { createKotaValidation, getKotaValidation, updateKotaValidation } from "../validation/kota-validation.js"
 import { validate } from "../validation/validation.js"
 
+const lowerCase = (teks)=>{
+    const nama = teks
+    teks = nama.toLowerCase()
+
+    return teks
+}
+
+
 const create = async (req)=>{
     const kota  = validate(createKotaValidation, req)
+    kota.nm_kota = lowerCase(kota.nm_kota)
 
     const countKota = await prisma.kota.count({
         where:{
@@ -28,15 +37,23 @@ const create = async (req)=>{
 
 const get = async(nm_kota)=>{
     nm_kota = validate(getKotaValidation, nm_kota)
+    nm_kota = lowerCase(nm_kota)
 
-    const findKota = await prisma.kota.findFirst({
+    const findKota = await prisma.kota.findUnique({
         where :{
             nm_kota : nm_kota
         },
         select :{
             nm_kota : true,
             about : true,
-            country : true
+            country : true,
+            destination :{
+                select :{
+                    id : true,
+                    nm_destination : true,
+                    about : true
+                }
+            }
         }
     })
 
@@ -49,6 +66,7 @@ const get = async(nm_kota)=>{
 
 const update = async(req)=>{
     const kota = validate(updateKotaValidation, req)
+    kota.nm_kota = lowerCase(kota.nm_kota)
 
     const countKota = await prisma.kota.count({
         where :{
@@ -78,6 +96,7 @@ const update = async(req)=>{
 
 const remove = async (nm_kota)=>{
     nm_kota = validate (getKotaValidation, nm_kota)
+    nm_kota = lowerCase(nm_kota)
 
     const countKota = await prisma.kota.count({
         where :{

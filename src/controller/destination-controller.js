@@ -2,10 +2,10 @@ import destinationService from "../service/destination-service.js"
 
 const create = async(req, res, next)=>{
     try {
-        const kotaId = req.params.kota
+        const namaKota = req.params.kota
         const request = req.body
 
-        const result = await destinationService.create(kotaId, request)
+        const result = await destinationService.create(namaKota, request)
         res.status(200).json({
             data : result
         })
@@ -17,10 +17,10 @@ const create = async(req, res, next)=>{
 
 const get = async(req, res, next)=>{
     try {
-        const kotaId = req.params.kota
+        const namaKota = req.params.kota
         const destinationId = req.params.destination
 
-        const result = await destinationService.get(kotaId, destinationId)
+        const result = await destinationService.get(namaKota, destinationId)
         res.status(200).json({
             data : result
         })
@@ -31,12 +31,12 @@ const get = async(req, res, next)=>{
 
 const update = async (req, res, next)=>{
     try {
-        const kotaId = req.params.kota
+        const namaKota = req.params.kota
         const destinationId = req.params.destination
         const request = req.body
         request.id = destinationId
 
-        const result = await destinationService.update(kotaId, request)
+        const result = await destinationService.update(namaKota, request)
         res.status(200).json({
             data : result
         })
@@ -47,10 +47,10 @@ const update = async (req, res, next)=>{
 
 const remove = async(req, res, next)=>{
     try {
-        const kotaId = req.params.kota
+        const namaKota = req.params.kota
         const destinationId = req.params.destination
 
-        await destinationService.remove(kotaId, destinationId)
+        await destinationService.remove(namaKota, destinationId)
         res.status(200).json({
             data : 'ok'
         })
