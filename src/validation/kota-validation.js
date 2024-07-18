@@ -1,7 +1,7 @@
 import Joi from 'joi'
 
 const createKotaValidation = Joi.object({
-    nm_kota : Joi.string().max(100).required(),
+    nm_kota : Joi.string().max(100).lowercase().required(),
     about : Joi.string().max(100).required(),
     country : Joi.string().max(100).required()
 })

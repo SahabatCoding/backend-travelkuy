@@ -49,7 +49,15 @@ const get = async(nm_kota ,destinationId)=>{
         select :{
             id: true,
             nm_destination : true,
-            about : true
+            about : true,
+            hotel :{
+                select :{
+                    nm_hotel : true,
+                    about : true,
+                    alamat : true,
+                    price : true
+                }
+            }
         }
     })
 
