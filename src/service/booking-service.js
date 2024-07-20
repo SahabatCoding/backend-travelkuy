@@ -29,6 +29,7 @@ const create = async(user, hotelId , req)=>{
     return prisma.booking.create({
         data : booking,
         select :{
+            id_booking : true,
             check_in : true,
             check_out : true,
             price : true
@@ -47,9 +48,30 @@ const get = async (user, hotelId, bookingId)=>{
             username : user
         },
         select:{
+            id_booking : true,
             check_in : true ,
             check_out : true,
-            price : true
+            price : true,
+            user : {
+                select :{
+                    username : true
+                }
+            },
+            hotel :{
+                select:{
+                    nm_hotel : true,
+                    destination :{
+                        select :{
+                            nm_destination : true,
+                            kota :{
+                                select :{
+                                    nm_kota : true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     })
     if(!findBooking){

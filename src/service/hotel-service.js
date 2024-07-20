@@ -28,6 +28,7 @@ const create = async (destinationId , req)=>{
     return prisma.hotel.create({
         data : hotel,
         select :{
+            id : true,
             nm_hotel : true,
             about : true,
             alamat : true,
@@ -46,6 +47,7 @@ const get = async (destinationId, hotelId)=>{
             id_destination : id_destination
         },
         select :{
+            id : true,
             nm_hotel : true,
             about : true,
             alamat : true,
