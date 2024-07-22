@@ -2,11 +2,13 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Server Travel",
-  "main": "src/main.js",
+  "main": "src/application/web.js",
   "type": "module",
   "scripts": {
-    "start": "node src/main.js",
-    "test": "jest"
+    "start": "node src/application/web.js",
+    "vercel-build" : "echo hello",
+    "test": "jest",
+    "build" : "prisma generate"
   },
   "jest": {
     "transform": {

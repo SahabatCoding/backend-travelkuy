@@ -3,8 +3,10 @@ import { errorMiddleware } from '../middleware/error-middleware.js'
 import { publicRouter } from '../router/public-api.js'
 import { userRouter } from '../router/api.js'
 
-export const web = express()
+const web = express()
 web.use(express.json())
 web.use(publicRouter)
 web.use(userRouter)
 web.use(errorMiddleware)
+
+export default web
