@@ -1,5 +1,5 @@
 import { prisma } from "../src/application/database.js"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 //Buat data User
 export const removeUserTest = async ()=>{
