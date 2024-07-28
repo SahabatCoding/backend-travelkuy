@@ -1,6 +1,40 @@
 # Hi, I'm Chairul! 👋
 
-I am a fresh graduate who is currently developing a career as a Backend Developer, according to my passion in developing efficient and scalable systems. I am very determined to continue improving my backend development skills and recently completed a 5 month Data & Software Engineering boot camp at RevoU.
+Hi, I'm Chairul, this api project was created to create a travel website.
+why did I make this? because I was trusted by the team to be the backend at one of the boot camps, I have completed the city, destination and hotel api, not only that, I created users and bookings for transactions when the user wants to book a hotel
+
+## API Reference
+
+```http
+  https://backend-travelkuy.vercel.app
+```
+
+#### Get all destination in aceh
+
+```http
+  GET /kota/aceh
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
+
+#### Get all the hotels in the Aceh destination
+
+Get the destination ID after you get the Aceh destination api. the one above
+
+```http
+  GET /kota/aceh/destination/${id}
+```
+
+
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+
+
 
 ## Announcement
 
